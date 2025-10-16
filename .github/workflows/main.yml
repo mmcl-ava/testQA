@@ -1,0 +1,34 @@
+# Nombre del pipeline, aparecerá en la pestaña "Actions" de GitHub
+name: Mi Primer Pipeline de CI
+
+# 1. TRIGGER: ¿Cuándo debe ejecutarse este pipeline?
+# En este caso, cada vez que alguien haga "push" a la rama "main"
+on:
+  push:
+    branches: [ "main" ]
+
+# 2. JOBS: Define los "trabajos" que hará el pipeline.
+# Podemos tener varios trabajos que se ejecuten en paralelo.
+jobs:
+  # Nombramos nuestro primer trabajo "build-and-test"
+  build-and-test:
+    # Le decimos a GitHub que use una máquina virtual con la última versión de Ubuntu
+    runs-on: ubuntu-latest
+
+    # 3. STEPS: La secuencia de pasos para este trabajo.
+    steps:
+      # Paso 1: Descargar tu código en la máquina virtual.
+      # "uses" reutiliza una acción ya creada por la comunidad.
+      - name: Descargar el código del repositorio
+        uses: actions/checkout@v4
+
+      # Paso 2: Un "test" muy simple.
+      # "run" ejecuta un comando de terminal.
+      # Aquí, solo listamos los archivos para demostrar que el código está ahí.
+      - name: Listar archivos para simular una prueba
+        run: ls -l
+
+      # Paso 3: Otro paso simple para saludar.
+      - name: Saludar desde el pipeline
+        run: echo "¡El pipeline se está ejecutando exitosamente!"
+
